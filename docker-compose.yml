@@ -1,0 +1,8 @@
+version: '3'
+services:
+  fuseki:
+    image: "linkedsolutions/fuseki-base"
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./base:/fuseki/base
