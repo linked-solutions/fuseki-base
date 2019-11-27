@@ -11,6 +11,7 @@ RUN mkdir /fuseki/home /fuseki/base\
     && cp /sources/target/fuseki.jar /fuseki/home/
 
 COPY docker-entrypoint.sh /
+RUN chmod 755 /docker-entrypoint.sh
 COPY set-up-scripts /fuseki/set-up-scripts
 COPY set-up-resources /fuseki/set-up-resources
 
