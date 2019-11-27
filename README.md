@@ -21,7 +21,7 @@ The Docker image provided by this distribution shall:
 
 or 
 
-    docker run --rm -v `pwd`/base:/fuseki/base -p 3030:3030 fuseki
+    docker run --rm -v `pwd`/base:/fuseki/base -p 3030:3030 linkedsolutions/fuseki-base
 
 You might have '`pwd`/base' with the full path to the FUSEKI_BASE directory, see 
 https://jena.apache.org/documentation/fuseki2/fuseki-layout.html to learn avout the contents of this directory.
