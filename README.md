@@ -13,7 +13,7 @@ The Docker image provided by this distribution shall:
 
  ## Building
 
-    docker -t linkedsolutions/fuseki-base . 
+    docker build -t linkedsolutions/fuseki-base . 
 
 ## Running 
 
