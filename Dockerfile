@@ -19,4 +19,4 @@ ENV FUSEKI_HOME=/fuseki/home
 ENV FUSEKI_BASE=/fuseki/base
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["java", "-cp", "/fuseki/home/fuseki.jar:/fuseki/extensions/*", "org.apache.jena.fuseki.cmd.FusekiCmd"]
+CMD java $JAVA_OPTS -cp /fuseki/home/fuseki.jar:/fuseki/extensions/* org.apache.jena.fuseki.cmd.FusekiCmd
