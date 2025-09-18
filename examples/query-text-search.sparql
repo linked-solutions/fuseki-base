@@ -1,0 +1,13 @@
+PREFIX text: <http://jena.apache.org/text#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+SELECT ?subject ?score ?title ?name ?label
+WHERE {
+  (?subject ?score) text:query "SPARQL" .
+  OPTIONAL { ?subject dc:title ?title }
+  OPTIONAL { ?subject foaf:name ?name }
+  OPTIONAL { ?subject rdfs:label ?label }
+}
+ORDER BY DESC(?score)

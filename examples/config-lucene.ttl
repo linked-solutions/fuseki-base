@@ -1,0 +1,48 @@
+@prefix :        <#> .
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix text:    <http://jena.apache.org/text#> .
+
+<#service_tdb_lucene> rdf:type fuseki:Service ;
+    rdfs:label                      "TDB with Lucene" ;
+    fuseki:name                     "books" ;
+    fuseki:serviceQuery             "query" ;
+    fuseki:serviceQuery             "sparql" ;
+    fuseki:serviceUpdate            "update" ;
+    fuseki:serviceUpload            "upload" ;
+    fuseki:serviceReadWriteGraphStore      "data" ;
+    fuseki:serviceReadGraphStore       "get" ;
+    fuseki:dataset           <#dataset> ;
+    .
+
+<#dataset> rdf:type text:TextDataset ;
+    text:dataset <#tdb_dataset> ;
+    text:index <#indexLucene> ;
+    .
+
+<#tdb_dataset> rdf:type tdb:DatasetTDB ;
+    tdb:location "/fuseki-data/databases/books-lucene" ;
+    tdb:unionDefaultGraph true ;
+    .
+
+<#indexLucene> a text:TextIndexLucene ;
+    text:directory <file:/fuseki-data/lucene-index> ;
+    text:entityMap <#entMap> ;
+    .
+
+<#entMap> a text:EntityMap ;
+    text:entityField      "uri" ;
+    text:defaultField     "text" ;
+    text:langField        "lang" ;
+    text:graphField       "graph" ;
+    text:map (
+         [ text:field "text" ; 
+           text:predicate rdfs:label ]
+         [ text:field "title" ; 
+           text:predicate <http://purl.org/dc/elements/1.1/title> ]
+         [ text:field "name" ; 
+           text:predicate <http://xmlns.com/foaf/0.1/name> ]
+         ) .

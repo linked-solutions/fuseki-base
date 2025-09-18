@@ -1,0 +1,12 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX ex: <http://example.org/>
+
+SELECT ?book ?title ?author ?year
+WHERE {
+  ?book a ex:Book ;
+        dc:title ?title ;
+        dc:creator ?author ;
+        ex:publishedYear ?year .
+}
+ORDER BY DESC(?year)

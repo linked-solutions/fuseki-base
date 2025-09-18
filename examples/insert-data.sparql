@@ -1,0 +1,14 @@
+PREFIX ex: <http://example.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+INSERT DATA {
+  ex:person3 a foaf:Person ;
+    foaf:name "Charlie Brown" ;
+    foaf:age 35 .
+    
+  ex:book3 a ex:Book ;
+    dc:title "RDF in Practice" ;
+    dc:creator "Charlie Brown" ;
+    ex:publishedYear 2024 .
+}

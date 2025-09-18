@@ -1,0 +1,32 @@
+@prefix ex: <http://example.org/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:book1 a ex:Book ;
+    dc:title "Learning SPARQL" ;
+    rdfs:label "A comprehensive guide to SPARQL query language for semantic web" ;
+    dc:creator "Alice Smith" ;
+    ex:publishedYear 2023 .
+
+ex:book2 a ex:Book ;
+    dc:title "Semantic Web Technologies" ;
+    rdfs:label "Introduction to RDF, SPARQL, and linked data technologies" ;
+    dc:creator "Bob Johnson" ;
+    ex:publishedYear 2022 .
+
+ex:book3 a ex:Book ;
+    dc:title "RDF in Practice" ;
+    rdfs:label "Practical applications of RDF for data integration" ;
+    dc:creator "Charlie Brown" ;
+    ex:publishedYear 2024 .
+
+ex:person1 a foaf:Person ;
+    foaf:name "Alice Smith" ;
+    rdfs:label "Expert in SPARQL and semantic web technologies" ;
+    foaf:age 30 .
+
+ex:person2 a foaf:Person ;
+    foaf:name "Bob Johnson" ;
+    rdfs:label "Researcher specializing in RDF data modeling" ;
+    foaf:age 25 .
