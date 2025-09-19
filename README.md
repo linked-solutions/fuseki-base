@@ -106,7 +106,7 @@ docker run --rm -p 3030:3030 \
   sh -c "java \$JAVA_OPTS -cp /fuseki/home/fuseki.jar org.apache.jena.fuseki.cmd.FusekiCmd --config=/config.ttl"
 ```
 
-### Docker Compose
+### Docker Compose With Configuration
 
 ```yaml
 services:
@@ -122,14 +122,11 @@ services:
 
 ### Text Search with Lucene
 
-**Note**: Requires jena-text extension jar mounted to `/fuseki/extensions/`. The jena-text jar is not included by default to keep the base image lightweight.
-
 #### Start with Lucene
 ```bash
 docker run --rm -p 3030:3030 \
   -v $(pwd)/fuseki-data:/fuseki-data \
   -v $(pwd)/examples/config-lucene.ttl:/config-lucene.ttl \
-  -v $(pwd)/jena-text.jar:/fuseki/extensions/jena-text.jar \
   linkedsolutions/fuseki-base \
   sh -c "java \$JAVA_OPTS -cp /fuseki/home/fuseki.jar org.apache.jena.fuseki.cmd.FusekiCmd --config=/config-lucene.ttl"
 ```
@@ -198,6 +195,6 @@ Fuseki provides a web interface at `http://localhost:3030` where you can:
 3. **Performance**: Use TDB for better performance with large datasets
 4. **Monitoring**: Check server logs and the `/$/stats` endpoint for monitoring
 5. **Backup**: Regularly backup your TDB database directories
-6. **Text Search**: For full-text search capabilities, add jena-text jars to `/fuseki/extensions`
+6. **Text Search**: Full-text search with Lucene is now included by default
 7. **Memory**: Increase JVM memory with `JAVA_OPTS="-Xmx4g"` for large datasets
 8. **Security**: Always change default passwords in production environments
