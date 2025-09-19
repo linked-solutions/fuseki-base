@@ -28,9 +28,16 @@ https://jena.apache.org/documentation/fuseki2/fuseki-layout.html to learn about 
 
 ## Configuration
 
+The image starts by default with a minimal configuration file at `/config.ttl` that defines an empty Fuseki server with no datasets. This allows Fuseki to start successfully while providing a base for customization.
+
 You can mount a local folder at the container path `/fuseki/base` and put any fuseki configuration file in that folder. When the image is run for the first time a default configuration is created in that directory. With this default configuration the 
 environment variable `ADMIN_PASSWORD` can be used to set the password of the admin user
 on startup.
+
+To use a custom configuration, simply mount your configuration file at `/config.ttl`:
+```bash
+-v $(pwd)/my-config.ttl:/config.ttl
+```
 
 ## Extending
 
@@ -98,12 +105,16 @@ curl -X POST -H "Content-Type: application/sparql-update" \
 ### Configuration-based Setup
 
 ```bash
-# Using a configuration file
+# Using a custom configuration file (replaces the default /config.ttl)
 docker run --rm -p 3030:3030 \
   -v $(pwd)/fuseki-data:/fuseki/base \
   -v $(pwd)/examples/config.ttl:/config.ttl \
-  linkedsolutions/fuseki-base \
-  sh -c "java \$JAVA_OPTS -cp /fuseki/home/fuseki.jar org.apache.jena.fuseki.cmd.FusekiCmd --config=/config.ttl"
+  linkedsolutions/fuseki-base
+
+# Or run with the default minimal configuration (no datasets)
+docker run --rm -p 3030:3030 \
+  -v $(pwd)/fuseki-data:/fuseki/base \
+  linkedsolutions/fuseki-base
 ```
 
 ### Docker Compose With Configuration
@@ -116,10 +127,9 @@ services:
       - "3030:3030"
     volumes:
       - ./fuseki-data:/fuseki/base
-      - ./examples/config.ttl:/config.ttl
+      - ./examples/config.ttl:/config.ttl  # Override default config
     environment:
       - ADMIN_PASSWORD=your-secure-password
-    command: ["sh", "-c", "java $$JAVA_OPTS -cp /fuseki/home/fuseki.jar org.apache.jena.fuseki.cmd.FusekiCmd --config=/config.ttl"]
 ```
 
 ### Text Search with Lucene
@@ -128,9 +138,8 @@ services:
 ```bash
 docker run --rm -p 3030:3030 \
   -v $(pwd)/fuseki-data:/fuseki-data \
-  -v $(pwd)/examples/config-lucene.ttl:/config-lucene.ttl \
-  linkedsolutions/fuseki-base \
-  sh -c "java \$JAVA_OPTS -cp /fuseki/home/fuseki.jar org.apache.jena.fuseki.cmd.FusekiCmd --config=/config-lucene.ttl"
+  -v $(pwd)/examples/config-lucene.ttl:/config.ttl \
+  linkedsolutions/fuseki-base
 ```
 
 #### Upload searchable data

@@ -28,9 +28,10 @@ COPY docker-entrypoint.sh /
 RUN chmod 755 /docker-entrypoint.sh
 COPY set-up-scripts /fuseki/set-up-scripts
 COPY set-up-resources /fuseki/set-up-resources
+COPY config-default.ttl /config.ttl
 
 ENV FUSEKI_HOME=/fuseki/home
 ENV FUSEKI_BASE=/fuseki/base
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["sh", "-c", "java $JAVA_OPTS -cp /fuseki/home/fuseki.jar:/fuseki/extensions/* org.apache.jena.fuseki.cmd.FusekiCmd"]
+CMD ["sh", "-c", "java $JAVA_OPTS -cp /fuseki/home/fuseki.jar:/fuseki/extensions/* org.apache.jena.fuseki.cmd.FusekiCmd --config=/config.ttl"]
