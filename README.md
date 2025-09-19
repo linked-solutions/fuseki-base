@@ -100,7 +100,7 @@ curl -X POST -H "Content-Type: application/sparql-update" \
 ```bash
 # Using a configuration file
 docker run --rm -p 3030:3030 \
-  -v $(pwd)/fuseki-data:/fuseki-data \
+  -v $(pwd)/fuseki-data:/fuseki/base \
   -v $(pwd)/examples/config.ttl:/config.ttl \
   linkedsolutions/fuseki-base \
   sh -c "java \$JAVA_OPTS -cp /fuseki/home/fuseki.jar org.apache.jena.fuseki.cmd.FusekiCmd --config=/config.ttl"
@@ -116,8 +116,10 @@ services:
       - "3030:3030"
     volumes:
       - ./fuseki-data:/fuseki/base
+      - ./examples/config.ttl:/config.ttl
     environment:
       - ADMIN_PASSWORD=your-secure-password
+    command: ["sh", "-c", "java $$JAVA_OPTS -cp /fuseki/home/fuseki.jar org.apache.jena.fuseki.cmd.FusekiCmd --config=/config.ttl"]
 ```
 
 ### Text Search with Lucene
